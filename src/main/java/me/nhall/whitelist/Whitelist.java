@@ -3,6 +3,7 @@ package me.nhall.whitelist;
 import com.google.gson.Gson;
 import me.nhall.whitelist.command.discord.DiscordWhitelistCmd;
 import me.nhall.whitelist.listener.DeathListener;
+import me.nhall.whitelist.listener.InventoryListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 
 public final class Whitelist extends JavaPlugin {
@@ -24,6 +26,7 @@ public final class Whitelist extends JavaPlugin {
     private JDA jda;
     private Map<?, ?> deathMap;
     private Map<?, ?> entityMap;
+    private List<String> enchantBan;
 
     public static Whitelist getPlugin() {
         return plugin;
@@ -36,6 +39,7 @@ public final class Whitelist extends JavaPlugin {
         FileConfiguration config = this.getConfig();
         deathMap = loadJsonFile("deaths.json");
         entityMap = loadJsonFile("entities.json");
+        this.enchantBan = config.getStringList("enchant-ban");
 
         try {
             jda = JDABuilder.createLight(config.getString("token")).setActivity(Activity.playing("mc.nhall.me")).addEventListeners(new DiscordWhitelistCmd(this)).build();
@@ -46,6 +50,7 @@ public final class Whitelist extends JavaPlugin {
             this.getPluginLoader().disablePlugin(this);
         }
         getServer().getPluginManager().registerEvents(new DeathListener(), this);
+        getServer().getPluginManager().registerEvents(new InventoryListener(), this);
         jda.upsertCommand("whitelist", "Whitelist Somebody on the Server")
                 .addOption(OptionType.STRING, "username", "The username of the player you want to whitelist.", true).queue();
 
@@ -80,5 +85,9 @@ public final class Whitelist extends JavaPlugin {
 
     public Map<?, ?> getEntityMap() {
         return entityMap;
+    }
+
+    public List<String> getEnchantBan() {
+        return enchantBan;
     }
 }
