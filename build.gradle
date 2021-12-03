@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'me.nhall'
-version = '1.0.1'
+version = '1.0.2'
 
 def jdaVersion = '5.0.0-alpha.1'
 
@@ -29,6 +29,7 @@ dependencies {
         exclude module: 'opus-java'
     }
     implementation("ch.qos.logback:logback-classic:1.2.3")
+    implementation("com.google.code.gson:gson:2.8.9")
 }
 
 def targetJavaVersion = 17
