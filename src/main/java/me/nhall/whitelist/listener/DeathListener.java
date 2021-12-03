@@ -53,7 +53,7 @@ public class DeathListener implements Listener {
                     .replace("%2$s", killer.getName());
         }
 
-        deathMessage = deathMessage + " (#" + (player.getStatistic(Statistic.DEATHS) + 1) + ")";
+        deathMessage = deathMessage + " (#" + player.getStatistic(Statistic.DEATHS) + ")";
         channel.sendMessage(deathMessage).queue();
 
     }
