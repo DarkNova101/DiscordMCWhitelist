@@ -13,7 +13,7 @@ public class DiscordWhitelistCmd extends ListenerAdapter {
     public void onSlashCommand(@NotNull SlashCommandEvent event) {
         if (event.getName().equals("whitelist")) {
             event.deferReply().queue();
-            Role role = event.getGuild().getRoleById(Whitelist.getPlugin().getConfig().getInt("role"));
+            Role role = event.getGuild().getRoleById(Whitelist.getPlugin().getConfig().getString("role"));
             if (!event.getMember().getRoles().contains(role)) {
                 event.getHook().sendMessage("You do not have the required permissions.").queue();
                 return;
