@@ -1,10 +1,10 @@
 plugins {
     id 'java'
-    id'com.github.johnrengelman.shadow' version '5.2.0'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
 }
 
 group = 'me.nhall'
-version = '1.0'
+version = '1.0.1'
 
 def jdaVersion = '5.0.0-alpha.1'
 
@@ -24,8 +24,10 @@ repositories {
 }
 
 dependencies {
-    compileOnly ("io.papermc.paper:paper-api:1.18-R0.1-SNAPSHOT")
-    implementation("net.dv8tion:JDA:$jdaVersion")
+    compileOnly("io.papermc.paper:paper-api:1.18-R0.1-SNAPSHOT")
+    implementation("net.dv8tion:JDA:$jdaVersion") {
+        exclude module: 'opus-java'
+    }
     implementation("ch.qos.logback:logback-classic:1.2.3")
 }
 

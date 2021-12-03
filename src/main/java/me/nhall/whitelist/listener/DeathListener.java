@@ -12,9 +12,9 @@ public class DeathListener implements Listener {
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
         Player player = event.getPlayer();
-        String deathMessage = event.deathMessage().toString();
         TextChannel channel = Whitelist.getPlugin().getJda().getTextChannelById(Whitelist.getPlugin().getConfig().getString("death-channel"));
 
-        channel.sendMessage(deathMessage);
+
+        channel.sendMessage(event.getDeathMessage()).queue();
     }
 }
