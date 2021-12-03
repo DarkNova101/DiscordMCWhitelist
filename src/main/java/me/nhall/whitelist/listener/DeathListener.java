@@ -12,7 +12,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
+import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DeathListener implements Listener {
@@ -34,7 +36,13 @@ public class DeathListener implements Listener {
 
         if (killer == null) {
             TranslatableComponent translatableComponent = (TranslatableComponent) event.deathMessage();
-            TranslatableComponent componentKiller = (TranslatableComponent) translatableComponent.args().get(1);
+            List<Component> componentArgs = translatableComponent.args();
+            TranslatableComponent componentKiller;
+            if (componentArgs.size() == 1) {
+                componentKiller = null;
+            } else {
+                componentKiller = (TranslatableComponent) translatableComponent.args().get(1);
+            }
 
             if (componentKiller == null) {
                 deathMessage = deathMessage
