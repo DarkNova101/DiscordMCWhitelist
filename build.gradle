@@ -56,3 +56,8 @@ processResources {
         expand props
     }
 }
+
+task copyToDev(type: Copy, dependsOn: ['shadowJar']) {
+    from "${buildDir}/libs"
+    into 'debug/plugins'
+}

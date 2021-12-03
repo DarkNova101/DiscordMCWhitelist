@@ -28,7 +28,10 @@ public class DiscordWhitelistCmd extends ListenerAdapter {
             }
 
             String username = event.getOption("username").getAsString();
-            plugin.getServer().dispatchCommand(Bukkit.getConsoleSender(), "whitelist add " + username);
+
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                plugin.getServer().dispatchCommand(Bukkit.getConsoleSender(), "whitelist add " + username);
+            });
             event.getHook().sendMessage("Added " + username + " to the server whitelist.").queue();
         }
     }
