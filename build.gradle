@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'me.nhall'
-version = '1.0.3'
+version = '1.0.4'
 
 def jdaVersion = '5.0.0-alpha.1'
 

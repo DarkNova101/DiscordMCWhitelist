@@ -3,3 +3,8 @@ version: '${version}'
 main: me.nhall.whitelist.Whitelist
 api-version: 1.17
 description: Discord Bot Link to Whitelist People from the GO's Discord
+commands:
+  wl reload:
+    description: Reload Config
+    usage: /<command>
+    permission: wl.reload

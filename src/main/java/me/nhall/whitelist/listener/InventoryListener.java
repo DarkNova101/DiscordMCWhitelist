@@ -12,14 +12,15 @@ public class InventoryListener implements Listener {
 
     @EventHandler
     public void onInventoryOpen(InventoryOpenEvent event) {
-
+        Whitelist plugin = Whitelist.getPlugin();
         Player player = (Player) event.getPlayer();
         Inventory inventory = event.getInventory();
 
         if (inventory.getType() == InventoryType.ENCHANTING && Whitelist.getPlugin().getEnchantBan().contains(player.getUniqueId().toString())) {
-            Whitelist.getPlugin().getServer().getScheduler().scheduleSyncDelayedTask(Whitelist.getPlugin(), () -> {
-                player.closeInventory();
-            }, 10L);
+            double number = Math.random();
+            if(number < plugin.getConfig().getDouble("enchant-rate")) {
+                Whitelist.getPlugin().getServer().getScheduler().scheduleSyncDelayedTask(Whitelist.getPlugin(), player::closeInventory, 10L);
+            }
         }
 
 

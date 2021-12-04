@@ -2,6 +2,7 @@ package me.nhall.whitelist;
 
 import com.google.gson.Gson;
 import me.nhall.whitelist.command.discord.DiscordWhitelistCmd;
+import me.nhall.whitelist.command.discord.minecraft.ReloadCmd;
 import me.nhall.whitelist.listener.DeathListener;
 import me.nhall.whitelist.listener.InventoryListener;
 import net.dv8tion.jda.api.JDA;
@@ -54,6 +55,7 @@ public final class Whitelist extends JavaPlugin {
         jda.upsertCommand("whitelist", "Whitelist Somebody on the Server")
                 .addOption(OptionType.STRING, "username", "The username of the player you want to whitelist.", true).queue();
 
+        this.getCommand("wl reload").setExecutor(new ReloadCmd());
     }
 
     @Override
