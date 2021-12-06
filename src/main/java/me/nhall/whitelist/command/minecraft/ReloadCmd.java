@@ -1,4 +1,4 @@
-package me.nhall.whitelist.command.discord.minecraft;
+package me.nhall.whitelist.command.minecraft;
 
 import me.nhall.whitelist.Whitelist;
 import org.bukkit.command.Command;

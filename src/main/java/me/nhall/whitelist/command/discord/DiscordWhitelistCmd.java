@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class DiscordWhitelistCmd extends ListenerAdapter {
 
-    private Whitelist plugin;
+    private final Whitelist plugin;
 
     public DiscordWhitelistCmd(Whitelist plugin) {
         this.plugin = plugin;
@@ -19,20 +19,20 @@ public class DiscordWhitelistCmd extends ListenerAdapter {
     public void onSlashCommand(@NotNull SlashCommandEvent event) {
         if (!event.isFromGuild()) return;
 
-        if (event.getName().equals("whitelist")) {
-            event.deferReply().queue();
-            Role role = event.getGuild().getRoleById(plugin.getConfig().getString("role"));
-            if (!event.getMember().getRoles().contains(role)) {
-                event.getHook().sendMessage("You do not have the required permissions.").queue();
-                return;
-            }
-
-            String username = event.getOption("username").getAsString();
-
-            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                plugin.getServer().dispatchCommand(Bukkit.getConsoleSender(), "whitelist add " + username);
-            });
-            event.getHook().sendMessage("Added " + username + " to the server whitelist.").queue();
+        if (!event.getName().equals("whitelist")) return;
+        event.deferReply().queue();
+        Role role = event.getGuild().getRoleById(plugin.getConfig().getString("role"));
+        if (!event.getMember().getRoles().contains(role)) {
+            event.getHook().sendMessage("You do not have the required permissions.").queue();
+            return;
         }
+
+        String username = event.getOption("username").getAsString();
+
+        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+            plugin.getServer().dispatchCommand(Bukkit.getConsoleSender(), "whitelist add " + username);
+        });
+        event.getHook().sendMessage("Added " + username + " to the server whitelist.").queue();
     }
 }
+
