@@ -1,6 +1,7 @@
 package me.nhall.whitelist;
 
 import com.google.gson.Gson;
+import me.nhall.whitelist.command.discord.DiscordPlaytimeCmd;
 import me.nhall.whitelist.command.discord.DiscordWhitelistCmd;
 import me.nhall.whitelist.command.minecraft.ReloadCmd;
 import me.nhall.whitelist.listener.DeathListener;
@@ -43,7 +44,10 @@ public final class Whitelist extends JavaPlugin {
         this.enchantBan = config.getStringList("enchant-ban");
 
         try {
-            jda = JDABuilder.createLight(config.getString("token")).setActivity(Activity.playing("mc.nhall.me")).addEventListeners(new DiscordWhitelistCmd(this)).build();
+            jda = JDABuilder.createLight(config.getString("token"))
+                    .setActivity(Activity.playing("mc.nhall.me"))
+                    .addEventListeners(new DiscordWhitelistCmd(this), new DiscordPlaytimeCmd(this))
+                    .build();
         } catch (LoginException e) {
             e.printStackTrace();
         }

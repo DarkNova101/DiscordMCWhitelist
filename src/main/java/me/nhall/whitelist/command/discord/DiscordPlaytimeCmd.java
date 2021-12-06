@@ -9,6 +9,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.Statistic;
 import org.jetbrains.annotations.NotNull;
 
+import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -35,6 +36,7 @@ public class DiscordPlaytimeCmd extends ListenerAdapter {
 
         for (OfflinePlayer p : plugin.getServer().getOfflinePlayers()) {
             allPlayers.put(p, p.getStatistic(Statistic.PLAY_ONE_MINUTE));
+
         }
         allPlayers = sortMap(allPlayers);
 
