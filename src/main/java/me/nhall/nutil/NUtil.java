@@ -1,11 +1,12 @@
-package me.nhall.whitelist;
+package me.nhall.nutil;
 
 import com.google.gson.Gson;
-import me.nhall.whitelist.command.discord.DiscordPlaytimeCmd;
-import me.nhall.whitelist.command.discord.DiscordWhitelistCmd;
-import me.nhall.whitelist.command.minecraft.ReloadCmd;
-import me.nhall.whitelist.listener.DeathListener;
-import me.nhall.whitelist.listener.InventoryListener;
+import me.nhall.nutil.command.discord.DiscordEvalCommand;
+import me.nhall.nutil.command.discord.DiscordPlaytimeCmd;
+import me.nhall.nutil.command.discord.DiscordWhitelistCmd;
+import me.nhall.nutil.command.minecraft.ReloadCmd;
+import me.nhall.nutil.listener.DeathListener;
+import me.nhall.nutil.listener.InventoryListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -22,15 +23,15 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
-public final class Whitelist extends JavaPlugin {
+public final class NUtil extends JavaPlugin {
 
-    private static Whitelist plugin;
+    private static NUtil plugin;
     private JDA jda;
     private Map<?, ?> deathMap;
     private Map<?, ?> entityMap;
     private List<String> enchantBan;
 
-    public static Whitelist getPlugin() {
+    public static NUtil getPlugin() {
         return plugin;
     }
 
@@ -46,7 +47,7 @@ public final class Whitelist extends JavaPlugin {
         try {
             jda = JDABuilder.createLight(config.getString("token"))
                     .setActivity(Activity.playing("mc.nhall.me"))
-                    .addEventListeners(new DiscordWhitelistCmd(this), new DiscordPlaytimeCmd(this))
+                    .addEventListeners(new DiscordWhitelistCmd(this), new DiscordPlaytimeCmd(this), new DiscordEvalCommand())
                     .build();
         } catch (LoginException e) {
             e.printStackTrace();
@@ -60,7 +61,7 @@ public final class Whitelist extends JavaPlugin {
                 .addOption(OptionType.STRING, "username", "The username of the player you want to whitelist.", true).queue();
         jda.upsertCommand("playtime", "See Everyone's Playtime").queue();
 
-        this.getCommand("wl reload").setExecutor(new ReloadCmd());
+        this.getCommand("nreload").setExecutor(new ReloadCmd());
     }
 
     @Override

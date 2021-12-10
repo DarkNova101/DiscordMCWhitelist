@@ -1,10 +1,10 @@
-name: Whitelist
+name: "NUtils"
 version: '${version}'
-main: me.nhall.whitelist.Whitelist
+main: me.nhall.nutil.NUtil
 api-version: 1.17
 description: Discord Bot Link to Whitelist People from the GO's Discord
 commands:
-  wl reload:
+  nreload:
     description: Reload Config
     usage: /<command>
-    permission: wl.reload
+    permission: n.reload

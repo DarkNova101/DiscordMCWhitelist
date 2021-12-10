@@ -1,6 +1,6 @@
-package me.nhall.whitelist.command.discord;
+package me.nhall.nutil.command.discord;
 
-import me.nhall.whitelist.Whitelist;
+import me.nhall.nutil.NUtil;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
@@ -9,7 +9,6 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.Statistic;
 import org.jetbrains.annotations.NotNull;
 
-import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -20,9 +19,9 @@ import java.util.Map;
 
 public class DiscordPlaytimeCmd extends ListenerAdapter {
 
-    private final Whitelist plugin;
+    private final NUtil plugin;
 
-    public DiscordPlaytimeCmd(Whitelist plugin) {
+    public DiscordPlaytimeCmd(NUtil plugin) {
         this.plugin = plugin;
     }
 

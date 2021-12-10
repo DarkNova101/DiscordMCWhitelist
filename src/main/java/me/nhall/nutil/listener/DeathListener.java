@@ -1,6 +1,6 @@
-package me.nhall.whitelist.listener;
+package me.nhall.nutil.listener;
 
-import me.nhall.whitelist.Whitelist;
+import me.nhall.nutil.NUtil;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TranslatableComponent;
@@ -14,7 +14,6 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DeathListener implements Listener {
@@ -23,16 +22,16 @@ public class DeathListener implements Listener {
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
-        Logger logger = Whitelist.getPlugin().getLogger();
+        Logger logger = NUtil.getPlugin().getLogger();
         Player player = event.getPlayer();
         Player killer = event.getPlayer().getKiller();
 
-        TextChannel channel = Whitelist.getPlugin().getJda().getTextChannelById(Whitelist.getPlugin().getConfig().getString("death-channel"));
+        TextChannel channel = NUtil.getPlugin().getJda().getTextChannelById(NUtil.getPlugin().getConfig().getString("death-channel"));
 
         Component message = event.deathMessage();
 
         String deathMessage = PlainTextComponentSerializer.plainText().serialize(message);
-        deathMessage = (String) Whitelist.getPlugin().getDeathMap().get(deathMessage);
+        deathMessage = (String) NUtil.getPlugin().getDeathMap().get(deathMessage);
 
         if (killer == null) {
             TranslatableComponent translatableComponent = (TranslatableComponent) event.deathMessage();
@@ -49,7 +48,7 @@ public class DeathListener implements Listener {
                         .replace("%1$s", player.getName());
             } else {
                 String entityKiller = PlainTextComponentSerializer.plainText().serialize(componentKiller);
-                entityKiller = (String) Whitelist.getPlugin().getEntityMap().get(entityKiller);
+                entityKiller = (String) NUtil.getPlugin().getEntityMap().get(entityKiller);
 
                 deathMessage = deathMessage
                         .replace("%1$s", player.getName())

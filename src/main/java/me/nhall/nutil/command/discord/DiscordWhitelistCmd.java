@@ -1,6 +1,6 @@
-package me.nhall.whitelist.command.discord;
+package me.nhall.nutil.command.discord;
 
-import me.nhall.whitelist.Whitelist;
+import me.nhall.nutil.NUtil;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -9,9 +9,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class DiscordWhitelistCmd extends ListenerAdapter {
 
-    private final Whitelist plugin;
+    private final NUtil plugin;
 
-    public DiscordWhitelistCmd(Whitelist plugin) {
+    public DiscordWhitelistCmd(NUtil plugin) {
         this.plugin = plugin;
     }
 

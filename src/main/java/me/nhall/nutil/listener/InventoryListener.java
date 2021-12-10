@@ -1,6 +1,6 @@
-package me.nhall.whitelist.listener;
+package me.nhall.nutil.listener;
 
-import me.nhall.whitelist.Whitelist;
+import me.nhall.nutil.NUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,14 +12,14 @@ public class InventoryListener implements Listener {
 
     @EventHandler
     public void onInventoryOpen(InventoryOpenEvent event) {
-        Whitelist plugin = Whitelist.getPlugin();
+        NUtil plugin = NUtil.getPlugin();
         Player player = (Player) event.getPlayer();
         Inventory inventory = event.getInventory();
 
-        if (inventory.getType() == InventoryType.ENCHANTING && Whitelist.getPlugin().getEnchantBan().contains(player.getUniqueId().toString())) {
+        if (inventory.getType() == InventoryType.ENCHANTING && NUtil.getPlugin().getEnchantBan().contains(player.getUniqueId().toString())) {
             double number = Math.random();
             if(number < plugin.getConfig().getDouble("enchant-rate")) {
-                Whitelist.getPlugin().getServer().getScheduler().scheduleSyncDelayedTask(Whitelist.getPlugin(), player::closeInventory, 10L);
+                NUtil.getPlugin().getServer().getScheduler().scheduleSyncDelayedTask(NUtil.getPlugin(), player::closeInventory, 10L);
             }
         }
 

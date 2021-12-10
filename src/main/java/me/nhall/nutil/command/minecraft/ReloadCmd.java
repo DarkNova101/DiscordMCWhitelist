@@ -1,6 +1,6 @@
-package me.nhall.whitelist.command.minecraft;
+package me.nhall.nutil.command.minecraft;
 
-import me.nhall.whitelist.Whitelist;
+import me.nhall.nutil.NUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -10,7 +10,7 @@ public class ReloadCmd implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        Whitelist plugin = Whitelist.getPlugin();
+        NUtil plugin = NUtil.getPlugin();
 
         plugin.reloadConfig();
         sender.sendMessage("Reloaded Config");
