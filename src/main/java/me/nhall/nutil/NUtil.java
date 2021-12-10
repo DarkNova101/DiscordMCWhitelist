@@ -1,7 +1,6 @@
 package me.nhall.nutil;
 
 import com.google.gson.Gson;
-import me.nhall.nutil.command.discord.DiscordEvalCommand;
 import me.nhall.nutil.command.discord.DiscordPlaytimeCmd;
 import me.nhall.nutil.command.discord.DiscordWhitelistCmd;
 import me.nhall.nutil.command.minecraft.ReloadCmd;
@@ -47,7 +46,7 @@ public final class NUtil extends JavaPlugin {
         try {
             jda = JDABuilder.createLight(config.getString("token"))
                     .setActivity(Activity.playing("mc.nhall.me"))
-                    .addEventListeners(new DiscordWhitelistCmd(this), new DiscordPlaytimeCmd(this), new DiscordEvalCommand())
+                    .addEventListeners(new DiscordWhitelistCmd(this), new DiscordPlaytimeCmd(this))
                     .build();
         } catch (LoginException e) {
             e.printStackTrace();
