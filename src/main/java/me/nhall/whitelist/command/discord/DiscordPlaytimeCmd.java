@@ -36,24 +36,22 @@ public class DiscordPlaytimeCmd extends ListenerAdapter {
 
         for (OfflinePlayer p : plugin.getServer().getOfflinePlayers()) {
             allPlayers.put(p, p.getStatistic(Statistic.PLAY_ONE_MINUTE));
-
         }
-        allPlayers = sortMap(allPlayers);
-
-        event.getHook().sendMessageEmbeds(createEmbed(allPlayers)).queue();
+        Map<OfflinePlayer, Integer> sortedPlayers = sortMap(allPlayers);
+        event.getHook().sendMessageEmbeds(createEmbed(sortedPlayers)).queue();
     }
 
     private MessageEmbed createEmbed(Map<OfflinePlayer, Integer> map) {
         EmbedBuilder eb = new EmbedBuilder()
                 .setTitle("Playtime")
-                .setDescription("Here is everyone's playtime");
+                .setDescription("Here is everyone's playtime - In minutes");
 
         for (Map.Entry<OfflinePlayer, Integer> entry : map.entrySet()) {
             if (eb.getFields().size() >= 24) {
                 break;
             }
             double time = entry.getValue() / 20 / 60;
-            eb.addField(entry.getKey().getName(), String.valueOf(time), true);
+            eb.addField(entry.getKey().getName(), String.valueOf(time), false);
         }
         return eb.build();
     }
